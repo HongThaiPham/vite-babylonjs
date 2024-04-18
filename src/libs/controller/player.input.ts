@@ -152,27 +152,27 @@ export default class PlayerInput {
     return this.isKeyPressed("Shift");
   }
 
-  private _prepareJumpButton(): void {
-    if (document.getElementById("jump-button")) {
-      return;
-    }
-    console.log("prepare jump button");
-    const onJump = () => {
-      this.jumpKeyDown = true;
-    };
-    const onJumpEnd = () => {
-      this.jumpKeyDown = false;
-    };
-    const jumpButton = document.createElement("button");
-    jumpButton.id = "jump-button";
-    document.body.appendChild(jumpButton);
-    jumpButton.addEventListener("touchstart", onJump, {
-      passive: false,
-    });
-    jumpButton.addEventListener("mousedown", onJump);
-    jumpButton.addEventListener("mouseup", onJumpEnd);
-    jumpButton.addEventListener("touchend", onJumpEnd);
-  }
+  // private _prepareJumpButton(): void {
+  //   if (document.getElementById("jump-button")) {
+  //     return;
+  //   }
+  //   console.log("prepare jump button");
+  //   const onJump = () => {
+  //     this.jumpKeyDown = true;
+  //   };
+  //   const onJumpEnd = () => {
+  //     this.jumpKeyDown = false;
+  //   };
+  //   const jumpButton = document.createElement("button");
+  //   jumpButton.id = "jump-button";
+  //   document.body.appendChild(jumpButton);
+  //   jumpButton.addEventListener("touchstart", onJump, {
+  //     passive: false,
+  //   });
+  //   jumpButton.addEventListener("mousedown", onJump);
+  //   jumpButton.addEventListener("mouseup", onJumpEnd);
+  //   jumpButton.addEventListener("touchend", onJumpEnd);
+  // }
 
   private _isAndroid(): boolean {
     return navigator.userAgent.toLowerCase().indexOf("android") > -1;

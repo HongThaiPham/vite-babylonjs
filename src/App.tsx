@@ -2,35 +2,38 @@ import "@babylonjs/loaders/glTF";
 import "@babylonjs/inspector";
 import "@babylonjs/core/Debug/debugLayer";
 import HavokPhysics from "@babylonjs/havok";
-import "./App.css";
 import SceneComponent from "babylonjs-hook";
 import {
   Vector3,
   HemisphericLight,
   Scene,
-  Mesh,
   ArcRotateCamera,
   Tools,
   HavokPlugin,
   PhysicsAggregate,
   PhysicsShapeType,
   MeshBuilder,
-  Quaternion,
-  PhysicsMotionType,
+  SceneLoader,
 } from "@babylonjs/core";
 import { importModel } from "./libs/importModel";
 import { importAnimation } from "./libs/importAnimation";
 import CharacterController from "./libs/controller/character.controller";
-let box: Mesh;
+
 let havokInstance: Awaited<ReturnType<typeof HavokPhysics>>;
 const promise = HavokPhysics().then((instance) => {
   havokInstance = instance;
 });
 
+declare global {
+  interface Window {
+    d: () => void;
+  }
+}
+
 const onSceneReady = async (scene: Scene) => {
   window.d = () => scene.debugLayer.show();
-  // This creates and positions a free camera (non-mesh)
 
+  // This creates and positions a free camera (non-mesh)
   const camera = new ArcRotateCamera(
     "camera",
     Tools.ToRadians(0), // -90 because we want to look from above
@@ -55,7 +58,7 @@ const onSceneReady = async (scene: Scene) => {
   // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
   const light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
 
-  scene.onPointerDown = (evt, pickResult) => {
+  scene.onPointerDown = (_, pickResult) => {
     if (pickResult?.pickedMesh) {
       console.log(pickResult.pickedMesh.name);
     }
@@ -97,7 +100,13 @@ const onSceneReady = async (scene: Scene) => {
     }
   });
 
-  const player = await importModel(scene, "player.glb");
+  // const player = await importModel(scene, "player.glb");
+  const player = await SceneLoader.ImportMeshAsync(
+    null,
+    "https://models.readyplayer.me/",
+    "661a1b5d8106a27608ba6b5f.glb",
+    scene
+  );
 
   const capsule = MeshBuilder.CreateCapsule(
     "player",
@@ -156,12 +165,12 @@ const onSceneReady = async (scene: Scene) => {
 /**
  * Will run on every frame render.  We are spinning the box on y-axis.
  */
-const onRender = (scene: Scene) => {
-  // const player = scene.getMeshByName("player");
-  // if (player) {
-  //   player.position.x += 0.01;
-  // }
-};
+// const onRender = (scene: Scene) => {
+//   // const player = scene.getMeshByName("player");
+//   // if (player) {
+//   //   player.position.x += 0.01;
+//   // }
+// };
 
 function App() {
   return (
@@ -169,7 +178,7 @@ function App() {
       <SceneComponent
         antialias
         onSceneReady={onSceneReady}
-        onRender={onRender}
+        // onRender={onRender}
         id="my-canvas"
       />
     </main>

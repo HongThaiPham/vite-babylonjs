@@ -19,8 +19,8 @@ export default class CharacterController {
   private _jumpingTime: number = 0;
   private _jumpingMaxTime: number = 0.9;
   private _speed: number = 0.1; // 0.1
-  private _speedMultiplier: number = 1;
-  private _friction: number = 0.8;
+  // private _speedMultiplier: number = 1;
+  // private _friction: number = 0.8;
   private _camera: ArcRotateCamera;
   private _player: Mesh;
   private _input: PlayerInput;
@@ -28,7 +28,7 @@ export default class CharacterController {
   private _idleAnimation?: AnimationGroup;
   private _walkAnimation?: AnimationGroup;
   private _runAnimation?: AnimationGroup;
-  private _allAnimations?: AnimationGroup;
+  // private _allAnimations?: AnimationGroup;
   private _prevAnimationName?: "IDLE" | "WALKING" | "RUNNING";
   private _prevAnimationGroup?: AnimationGroup;
   private _capsuleAggregate: PhysicsAggregate;
