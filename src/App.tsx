@@ -2,6 +2,7 @@ import "@babylonjs/loaders/glTF";
 import "@babylonjs/inspector";
 import "@babylonjs/core/Debug/debugLayer";
 import HavokPhysics from "@babylonjs/havok";
+import "./App.css";
 import SceneComponent from "babylonjs-hook";
 import {
   Vector3,
